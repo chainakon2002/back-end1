@@ -1,6 +1,6 @@
 const db = require("../models/db");
 
-exports.createMenutems = async (req, res, next) => {
+exports.createProduct = async (req, res, next) => {
     try {
       const { ItemName, price, description, restaurantsId, file} = req.body;
       
@@ -9,27 +9,28 @@ exports.createMenutems = async (req, res, next) => {
         return next(new Error("Please provide all required fields"));
       }
   
-      const menutems = await db.menutems.create({
+      const product = await db.product.create({
         data: {
           ItemName,
           price:+price,
           description,
-          restaurantsId:+restaurantsId ,
+          restaurantsId: +restaurantsId ,
           file 
         }
       });
   
-      res.json({ msg: 'Product created successfully', menutems });
+      res.json({ msg: 'Product created successfully', product });
     } catch (error) {
       next(error);
     }
   };
 
-  exports.getmenutems = async (req, res, next) => {
+  exports.getproduct = async (req, res, next) => {
     try {
-      const menutems = await db.menutems.findMany();
-      res.json(menutems);
+      const product = await db.product.findMany();
+      res.json(product);
     } catch (error) {
       next(error);
     }
   };
+

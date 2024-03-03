@@ -1,15 +1,15 @@
 const db = require("../models/db");
 
 exports.deleteproduct = async (req, res, next ) => {
-    const {menutemsId} = req.params
+    const {productId} = req.params
 
     try {
-        const menutems = await db.menutems.delete({
+        const product = await db.product.delete({
             where: {
-                id: Number(menutemsId)
+                id: Number(productId)
             }
         })
-        res.json(menutems)
+        res.json(product)
     } catch (error) {
         next(error)
         
@@ -40,11 +40,31 @@ exports.addproduct = async (req, res, next) => {
     }
   };
 
-  exports.showorder = async (req, res, next) => {
+  exports.getorders = async (req, res, next) => {
     try {
-      const showorderde = await db.menutems.findMany();
-      res.json(menutems);
+      const order = await db.payment.findMany();
+      res.json(order);
     } catch (error) {
       next(error);
     }
   };
+
+  exports.updateProduct = async (req, res, next) => {
+    const {email, phone} = req.body
+    try {
+        const reserved = await db.user.update({
+            where: {
+                id: req.user.id
+            },
+            data: {
+                email,
+                phone
+                
+            }
+        })
+        res.json(reserved)
+
+    } catch (error) {
+        next(error)
+    }
+}
