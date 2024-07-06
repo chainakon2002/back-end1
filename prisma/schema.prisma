@@ -14,7 +14,11 @@ model User {
   id       Int       @id @default(autoincrement())
   username String    @unique @db.VarChar(30)
   password String    @db.VarChar(72)
+  name     String @db.VarChar(20)
+  lastname String @db.VarChar(30)
+  phone  String @db.VarChar(10)
   email    String?
+  address  String @db.VarChar(90)
   todos    Todo[]
   role     Role
   Payment  Payment[]
